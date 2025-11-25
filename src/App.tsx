@@ -1,17 +1,18 @@
 import { useState } from "react";
-import QRCode from "qrcode";
+import { generateMatrix } from "./utils/qr";
+import { generateCommands } from "./utils/mcfunction";
+
 
 function App() {
   const [text, setText] = useState("");
-  const [url, setUrl] = useState("");
+  const [commands, setCommands] = useState<string>("");
 
-  const generateQR = async () => {
-    try {
-      const qr = await QRCode.toDataURL(text);
-      setUrl(qr);
-    } catch (err) {
-      console.error(err);
-    }
+
+  const handleGenerate = () => {
+    const arr = generateMatrix(text);
+    const commands = generateCommands(arr);
+    setCommands(commands.join(""));
+
   };
 
   return (
@@ -22,10 +23,15 @@ function App() {
         onChange={(e) => setText(e.target.value)}
         placeholder="QRコードにしたい文字列"
       />
-      <button className="p-2 bg-blue-500 text-white mb-4" onClick={generateQR}>
+      <button className="p-2 bg-blue-500 text-white mb-4" onClick={handleGenerate}>
         生成
       </button>
-      {url && <img src={url} alt="QR Code" className="mt-4" />}
+      {/* コマンド表示用テキストボックス */}
+      <textarea
+        className="border p-2 h-64 font-mono"
+        value={commands}
+        readOnly
+      />
     </div>
   );
 }
