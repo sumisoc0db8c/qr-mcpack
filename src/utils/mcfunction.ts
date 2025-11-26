@@ -4,8 +4,8 @@ function judgeConcreteColor(bit: number): string {
 }
 
 /** 座標を生成する */
-function generateCoordinate(x: number, z: number): string {
-    return `~${x}~-1~${z}`;
+function generateCoordinate(x: number, y: number, length: number): string {
+    return `~${length - x}~${length - y}~1`;
 }
 
 /** setblockコマンド生成 */
@@ -13,11 +13,11 @@ export function generateCommands(matrix: number[][]): string[] {
     const commands: string[] = [];
     const length = matrix.length;
 
-    for (let z = 0; z < length; z++) {
+    for (let y = 0; y < length; y++) {
         for (let x = 0; x < length; x++) {
-            const bit = matrix[z][x];
+            const bit = matrix[y][x];
             const concrete = judgeConcreteColor(bit);
-            const coordinate = generateCoordinate(x, z);
+            const coordinate = generateCoordinate(x, y, length);
 
             const command = `setblock ${coordinate} ${concrete}\n`;
             commands.push(command);
