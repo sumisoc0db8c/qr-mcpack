@@ -19,3 +19,13 @@ export function generateMatrix(text: string): number[][] {
 
   return arr;
 }
+
+/**
+ * QRコードの画像を生成する
+ * 
+ * @param text QRコード生成文字列
+ * @returns 
+ */
+export async function generateImage(text: string):Promise<string>{
+  return await QRCode.toDataURL(text);
+}
