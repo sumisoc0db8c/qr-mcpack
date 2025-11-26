@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { generateMatrix } from "./utils/qr";
 import { generateCommands } from "./utils/mcfunction";
+import { validateInput } from "./utils/validate";
 
 
 function App() {
@@ -9,6 +10,12 @@ function App() {
 
 
   const handleGenerate = () => {
+    const error = validateInput(text)
+    if ( error ){
+      alert(error);
+      return;
+    }
+
     const arr = generateMatrix(text);
     const commands = generateCommands(arr);
     setCommands(commands.join(""));
