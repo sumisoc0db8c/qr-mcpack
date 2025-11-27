@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><svg id="cube" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><defs><style>.cls-1{fill:#fff;}</style></defs><rect id="back" class="cls-1" width="256" height="256"/><g id="center"><rect x="85.33" y="85.33" width="85.33" height="85.33"/></g><path id="flame" d="M0,0v256h256V0H0ZM213.33,213.33H42.67V42.67h170.67v170.67Z"/></svg>
