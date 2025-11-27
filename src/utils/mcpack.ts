@@ -1,6 +1,12 @@
 import JSZip from "jszip";
 
 
+/**
+ * manifest.jsonを生成する
+ * 
+ * @param text QRコードから読み取れる文字列
+ * @returns manifest.jsonの文字列
+ */
 function generateManifest(text:string): string {
     const manifest = {
         format_version: 2,
@@ -26,8 +32,8 @@ function generateManifest(text:string): string {
 /**
  * imageのDataURLからBlobを生成
  * 
- * @param url 
- * @returns 
+ * @param url 画像のurl
+ * @returns 画像ファイル
  */
 async function generateImageBlob(url:string):Promise<Blob>{
     const res = await fetch(url);
@@ -37,10 +43,12 @@ async function generateImageBlob(url:string):Promise<Blob>{
 /**
  * .mcpackを生成する
  * 
- * @param commands コマンドの文字列
+ * @param commands コマンドを繋げた文字列
+ * @param text QRコードから読み取れる文字列
+ * @param image_url QRコードの画像url
  * @returns 
  */
-export async function generateMcpack(commands: string, text:string, qr:string): Promise<Blob> {
+export async function generateMcpack(commands: string, text:string, image_url:string): Promise<Blob> {
     const zip = new JSZip();
 
     // コマンドファイル生成
@@ -51,7 +59,7 @@ export async function generateMcpack(commands: string, text:string, qr:string): 
     zip.file("manifest.json", generateManifest(text))
 
     // アイコン生成
-    const icon = await generateImageBlob(qr)
+    const icon = await generateImageBlob(image_url)
     zip.file("pack_icon.png", icon)
 
     // zipファイル生成
