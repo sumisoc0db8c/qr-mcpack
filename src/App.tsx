@@ -36,42 +36,46 @@ function App() {
   };
 
 return (
-  <div className="flex flex-col mx-auto p-6 space-y-4 w-full">
+  <div className="card bg-base-100 shadow-sm">
+    <div className="card-body">
     <input
-      className="border rounded-md p-2 focus:ring-2 focus:ring-blue-400 bg-white"
+      type="text"
+      className="input my-1"
       value={text}
       onChange={(e) => setText(e.target.value)}
       placeholder="QRコードにしたい文字列"
     />
     
-    <button
-      className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+    <button className="btn btn-primary btn-block my-1"
       onClick={handleGenerate}
     >
       生成
     </button>
-
+    <div className="my-3 w-64 h-48">
     {image ? (
       <img
         src={image}
         alt="QR Code"
-        className="mt-4 mx-auto border rounded-md shadow-md w-48 h-48"
+        className="mx-auto w-48 rounded-md shadow-md"
       />
     ):(
-      <div className="mt-4 w-48 h-48" />
+      <div className="" />
     )}
-
+    </div>
+    <div className="my-3">
     {downloadUrl ? (
       <a
         href={downloadUrl}
         download="QRコード生成アドオン.mcpack"
-        className="p-2 h-10 bg-green-500 text-white text-center rounded-md hover:bg-green-600"
+        className="btn btn-success btn-block"
       >
         ダウンロード
       </a>
     ):(
       <div className="p-2 h-10" />
     )}
+    </div>
+  </div>
   </div>
 );
 }
